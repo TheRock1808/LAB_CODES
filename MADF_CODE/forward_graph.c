@@ -1,3 +1,22 @@
+/*
+Algorithm forward_graph(G,k,n,p)
+{
+    //the input is k-stage graph G=(V,E) of n vertices index of order of stages
+    //E is set of edges and c[i,j] is the cost of edges <i,j>
+    //p[i:k] is the minimun cost path
+    cost[n] := 0;
+    for j := n-1 to 1 do
+    {
+        let r be vertex such that <j,r> is an edge of G and c[j,r] + cost[r] is minimum
+        cost[j] := c[j,r] + cost[r];
+        dist[j] := r;
+    }
+    p[1] := 1;
+    p[k] := n;
+    for j := 2 to k-1 do
+    p[j] := dist[p[j-1]];
+}
+*/
 #include <stdio.h>
 #include <limits.h>
 #define MAX 100
@@ -17,7 +36,7 @@ void fgraph(int C[][MAX], int n)
 {
     int cost[MAX];
     int d[MAX], r, path[MAX], k;
-    printf("enter the number of stages: ");
+    printf("Enter the number of stages: ");
     scanf("%d", &k);
     cost[n] = 0;
     for (int j = n - 1; j >= 1; j--)
@@ -28,7 +47,7 @@ void fgraph(int C[][MAX], int n)
             if (C[j][r] && C[j][r] + cost[r] < mn)
             {
                 mn = C[j][r] + cost[r];
-                d[j] = k;
+                d[j] = r;
             }
         }
         cost[j] = mn;
@@ -50,3 +69,4 @@ int main()
     inputgraph(Graph, n, m);
     fgraph(Graph, n);
 }
+

@@ -1,3 +1,22 @@
+/*
+Algorithm backward_graph(G,k,n,p)
+{
+    //the input is k-stage graph G=(V,E) of n vertices index of order of stages
+    //E is set of edges and c[i,j] is the cost of edges <i,j>
+    //p[i:k] is the minimun cost path
+    bcost[1] := 0;
+    for j := 2 to n do
+    {
+        let r be vertex such that <j,r> is an edge of G and c[j,r] + cost[r] is minimum
+        cost[j] := c[j,r] + cost[r];
+        dist[j] := r;
+    }
+    p[1] := 1;
+    p[n] := k;
+    for j := 2 to k-1 do
+    p[j] := dist[p[j-1]];
+}
+*/
 #include <stdio.h>
 #include <limits.h>
 #define MAX 100
@@ -27,7 +46,7 @@ void bgraph(int C[][MAX], int n)
             if (C[j][r] && C[j][r] + bcost[r] < mn)
             {
                 mn = C[j][r] + bcost[r];
-                d[j] = k;
+                d[j] = r;
             }
         }
         bcost[j] = mn;
